@@ -10,6 +10,8 @@ We are taking the current live site (`adminsenceweb.azurewebsites.net`) as the s
 - a **mock-first UI** (static/prototype that mirrors the DTOs/Entities)
 - then a **working template** for the WebShop solution (Admin + Site)
 
+The old project:  https://adminsenceweb.azurewebsites.net/
+
 ---
 
 ## ✅ 1. Goals (vNext)
@@ -21,7 +23,7 @@ We are taking the current live site (`adminsenceweb.azurewebsites.net`) as the s
   - Admin: staff-facing management & access control
 - **Mock-first workflow**: every screen has a mock + DTO contract + service endpoints plan.
 
----
+----
 
 ## 🧩 2. Information sources in this repo
 
