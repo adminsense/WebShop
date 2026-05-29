@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WebShopABMATIC - UI Prototypes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f1419;
+      --surface: #1a2332;
+      --border: #2d3a4f;
+      --text: #e8edf4;
+      --muted: #8b9cb3;
+      --accent: #3b82f6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .hub { max-width: 640px; width: 100%; }
+    .hub h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .hub > p { color: var(--muted); margin-bottom: 2rem; line-height: 1.6; }
+    .hub code { font-size: 0.9em; background: var(--surface); padding: 0.1em 0.4em; border-radius: 4px; }
+    .cards { display: grid; gap: 1rem; }
+    @media (min-width: 520px) { .cards { grid-template-columns: 1fr 1fr; } }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color .2s, transform .15s;
+    }
+    .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .card-icon {
+      width: 48px; height: 48px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700; margin-bottom: 1rem;
+    }
+    .card.shop .card-icon { background: #1e3a5f; color: #93c5fd; }
+    .card.admin .card-icon { background: #1a3d2e; color: #86efac; }
+    .card h2 { font-size: 1.125rem; margin-bottom: 0.35rem; }
+    .card span { font-size: 0.875rem; color: var(--muted); }
+    .badge {
+      display: inline-block; margin-top: 2rem;
+      padding: 0.35rem 0.75rem; font-size: 0.75rem;
+      background: #243044; border-radius: 999px; color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="hub">
+    <h1>WebShopABMATIC - Prototypes</h1>
+    <p>Static UI mocks aligned with <code>ApplicationDbContext</code>. Storefront and admin are separate experiences.</p>
+    <div class="cards">
+      <a class="card shop" href="mock-shopcart.html">
+        <div class="card-icon">SHOP</div>
+        <h2>Store &amp; Cart</h2>
+        <span>Catalog, cart, checkout, and customer account</span>
+      </a>
+      <a class="card admin" href="mock-admin.html">
+        <div class="card-icon">ADM</div>
+        <h2>Admin Panel</h2>
+        <span>Products, orders, users, roles &amp; permissions</span>
+      </a>
+    </div>
+    <span class="badge">UI only - no backend</span>
+  </div>
+</body>
+</html>
