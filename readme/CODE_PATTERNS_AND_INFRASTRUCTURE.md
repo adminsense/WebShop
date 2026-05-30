@@ -1702,6 +1702,8 @@ For questions about these patterns:
 
 ## Documentation
 
+- 🖥️ [Mock Prototype Guide](MOCK_PROTOTYPE_GUIDE.md) - Admin/store HTML mocks, screen layouts, entities
+- 🎨 [UI Patterns Quick Start](UI_PATTERNS_QUICK_START.md) - Buttons, grids, forms (copy-paste)
 - 🏠 [Main README](../README.md) - Project overview and structure
 - 📋 [Audit System](AUDIT.md) - Audit logging documentation
 ---

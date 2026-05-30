@@ -6,6 +6,24 @@
 
 ---
 
+## Mock prototype layout (WebShopABMATIC)
+
+The HTML admin mock in `docs/mock-admin.html` follows the **IMMO BELGIUM** admin shell. Three screen types map to the reference images in `readme/images/`:
+
+| Screen | Image | Mock file / view |
+|--------|-------|------------------|
+| **Dashboard** — sidebar, top bar, portfolio cards, logout, version | ![Main](../readme/images/main_screen.png) | `docs/mock-admin.html` → **Start** |
+| **Hub** — back link, entity cards, “X form” buttons | ![Menu](../readme/images/menu_screen.png) | `docs/mock-admin.html` → sidebar menus (Webshop, Catalog, …) |
+| **List + form** — filters, Apply/Clear, `table-dark` grid, edit form | ![Forms](../readme/images/forms_screen.png) | `docs/mock-admin.html` → entity list / form views |
+
+Storefront + admin entry: `docs/mock-loja.html` (**Admin Panel** after `StaffUser.Admin` login).
+
+**Full menu/entity/table documentation:** [MOCK_PROTOTYPE_GUIDE.md](MOCK_PROTOTYPE_GUIDE.md)
+
+The button, grid, and form templates below are what the mock (and future Blazor pages) must follow.
+
+---
+
 ## ðŸš¦ Icon System Cheat Sheet
 
 ### ðŸŽ¯ Where to Use Each Icon Set
@@ -367,8 +385,9 @@ A: See Color Code Reference above. Primary (blue) for main actions, danger (red)
 
 ## Documentation
 
-- ðŸ  [Main Documentation](../README.md) - Project overview and structure
-- ðŸ“‹ [Code Patterns](CODE_PATTERNS_AND_INFRASTRUCTURE.md) - Comprehensive patterns and infrastructure guide
+- 🖥️ [Mock Prototype Guide](MOCK_PROTOTYPE_GUIDE.md) - Screen layouts, menus, entities, validation
+- 🏠 [Main Documentation](../README.md) - Project overview and structure
+- 📋 [Code Patterns](CODE_PATTERNS_AND_INFRASTRUCTURE.md) - Comprehensive patterns and infrastructure guide
 
 ---
 
