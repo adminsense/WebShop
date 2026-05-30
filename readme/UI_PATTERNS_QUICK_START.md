@@ -1,4 +1,4 @@
-# 🎨 UI Patterns - Quick Start Guide for Developers
+﻿# ðŸŽ¨ UI Patterns - Quick Start Guide for Developers
 
 ![Status](https://img.shields.io/badge/Status-Quick%20Reference-28a745?style=flat-square) ![Copy-Paste](https://img.shields.io/badge/Copy--Paste-Ready-0dcaf0?style=flat-square) ![UI%20Patterns](https://img.shields.io/badge/UI%20Patterns-Complete-512BD4?style=flat-square)
 
@@ -6,43 +6,43 @@
 
 ---
 
-## 🚦 Icon System Cheat Sheet
+## ðŸš¦ Icon System Cheat Sheet
 
-### 🎯 Where to Use Each Icon Set
+### ðŸŽ¯ Where to Use Each Icon Set
 
 | Icon Set | System | Used For | Example | Import |
 |----------|--------|----------|---------|--------|
 | `oi oi-*` | **OpenIconic** | Navigation/UI | Back, Menu, Settings | HTML: `<span class="oi oi-X"></span>` |
 | `bi bi-*` | **Bootstrap Icons** | Actions/Content | Edit, Delete, Save | HTML: `<i class="bi bi-X"></i>` |
 
-**⚠️ CRITICAL:** Never mix them! OpenIconic for nav, Bootstrap for actions.
+**âš ï¸ CRITICAL:** Never mix them! OpenIconic for nav, Bootstrap for actions.
 
 ---
 
-## 🔘 Button Size & Style Quick Reference
+## ðŸ”˜ Button Size & Style Quick Reference
 
 ```
-┌─────────────────────────────────────────────────┐
-│ CONTEXT                    │ CLASS               │
-├─────────────────────────────────────────────────┤
-│ Header (Back)              │ btn outline-secondary btn-sm │
-│ Header (Refresh)           │ btn btn-success btn-sm       │
-│ Filter Apply/Clear         │ btn btn-primary              │
-│         (NO btn-sm)        │ btn btn-danger               │
-│ Grid Actions (Edit/Delete) │ btn btn-sm btn-primary       │
-│         (NO btn-sm)        │ btn btn-sm btn-danger        │
-│ Form Save/Cancel           │ btn btn-primary              │
-│         (NO btn-sm)        │ btn btn-secondary            │
-└─────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ CONTEXT                    â”‚ CLASS               â”‚
+â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
+â”‚ Header (Back)              â”‚ btn outline-secondary btn-sm â”‚
+â”‚ Header (Refresh)           â”‚ btn btn-success btn-sm       â”‚
+â”‚ Filter Apply/Clear         â”‚ btn btn-primary              â”‚
+â”‚         (NO btn-sm)        â”‚ btn btn-danger               â”‚
+â”‚ Grid Actions (Edit/Delete) â”‚ btn btn-sm btn-primary       â”‚
+â”‚         (NO btn-sm)        â”‚ btn btn-sm btn-danger        â”‚
+â”‚ Form Save/Cancel           â”‚ btn btn-primary              â”‚
+â”‚         (NO btn-sm)        â”‚ btn btn-secondary            â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
-**Rule:** If button in GRID → add `btn-sm` | If button in FORM/HEADER → NO `btn-sm`
+**Rule:** If button in GRID â†’ add `btn-sm` | If button in FORM/HEADER â†’ NO `btn-sm`
 
 ---
 
-## 📋 Copy-Paste Templates
+## ðŸ“‹ Copy-Paste Templates
 
-### 1️⃣ BACK BUTTON - Always use this exactly
+### 1ï¸âƒ£ BACK BUTTON - Always use this exactly
 
 ```html
 <button type="button" class="btn btn-outline-secondary btn-sm" @onclick="NavigateBack" title="Go back">
@@ -50,14 +50,14 @@
 </button>
 ```
 
-✅ What's special:
+âœ… What's special:
 - OpenIconic `oi-arrow-left` (NOT `bi-arrow-left`)
 - `btn-outline-secondary` (NOT solid `btn-secondary`)
 - ALWAYS `btn-sm`
 
 ---
 
-### 2️⃣ GRID ACTION BUTTONS - Edit & Delete
+### 2ï¸âƒ£ GRID ACTION BUTTONS - Edit & Delete
 
 ```html
 <td class="text-center">
@@ -72,7 +72,7 @@
 </td>
 ```
 
-✅ What's special:
+âœ… What's special:
 - ICON ONLY (no text in grids)
 - Always `btn-sm btn-primary` and `btn-sm btn-danger`
 - Wrapped in `btn-group btn-group-sm`
@@ -80,7 +80,7 @@
 
 ---
 
-### 3️⃣ FORM BUTTONS - Save & Cancel
+### 3ï¸âƒ£ FORM BUTTONS - Save & Cancel
 
 ```html
 <div class="d-flex gap-2">
@@ -101,7 +101,7 @@
 </div>
 ```
 
-✅ What's special:
+âœ… What's special:
 - Spinner replaces icon when saving
 - Icon `me-2` (margin before text)
 - NO `btn-sm` (full size buttons)
@@ -109,7 +109,7 @@
 
 ---
 
-### 4️⃣ FILTER BUTTONS - Apply & Clear
+### 4ï¸âƒ£ FILTER BUTTONS - Apply & Clear
 
 ```html
 <div class="d-flex gap-2">
@@ -122,7 +122,7 @@
 </div>
 ```
 
-✅ What's special:
+âœ… What's special:
 - NO `btn-sm` (full size)
 - Icon `me-1` (margin before text)
 - `bi-funnel-fill` with `-fill` suffix
@@ -130,7 +130,7 @@
 
 ---
 
-### 5️⃣ TEXT INPUT - With Validation
+### 5ï¸âƒ£ TEXT INPUT - With Validation
 
 ```html
 <div class="mb-3">
@@ -145,7 +145,7 @@
 </div>
 ```
 
-✅ What's special:
+âœ… What's special:
 - `*` in label for required fields
 - Use `FieldValidationCss.FormControl()` helper
 - `@onblur` (not on keyup)
@@ -166,7 +166,7 @@ private void ValidateFieldOnBlur(string fieldId, string value, string fieldName 
 
 ---
 
-### 6️⃣ DELETE CONFIRMATION MODAL
+### 6ï¸âƒ£ DELETE CONFIRMATION MODAL
 
 ```html
 @if (ShowDeleteConfirm && ItemToDelete != null)
@@ -200,7 +200,7 @@ private void ValidateFieldOnBlur(string fieldId, string value, string fieldName 
 }
 ```
 
-✅ What's special:
+âœ… What's special:
 - BOTH `modal` and `d-block` classes required
 - `style="background-color: rgba(0,0,0,0.5);"` (NOT `display: block`)
 - `border-0` on header AND footer
@@ -210,7 +210,7 @@ private void ValidateFieldOnBlur(string fieldId, string value, string fieldName 
 
 ---
 
-### 7️⃣ DATA GRID / TABLE
+### 7ï¸âƒ£ DATA GRID / TABLE
 
 ```html
 <div class="table-responsive">
@@ -236,7 +236,7 @@ private void ValidateFieldOnBlur(string fieldId, string value, string fieldName 
 </div>
 ```
 
-✅ What's special:
+âœ… What's special:
 - ALWAYS `table-dark` (black header)
 - ALWAYS `table-striped table-hover`
 - ALWAYS `@key="item.Id"` (performance)
@@ -244,20 +244,20 @@ private void ValidateFieldOnBlur(string fieldId, string value, string fieldName 
 
 ---
 
-## 🎨 Color Code Reference
+## ðŸŽ¨ Color Code Reference
 
 | Color | Hex | Button Class | When to Use |
 |-------|-----|--------------|------------|
-| 🔵 Blue | `#0d6efd` | `btn-primary` | Create, Edit, Save |
-| 🟩 Green | `#198754` | `btn-success` | Refresh, Approve |
-| 🔴 Red | `#dc3545` | `btn-danger` | Delete, Clear, Reject |
-| 🟦 Gray Fill | `#6c757d` | `btn-secondary` | Cancel |
-| ⚪ Gray Outline | `#6c757d` | `btn-outline-secondary` | Back navigation |
-| 🔷 Light Blue | `#0dcaf0` | `btn-info` | View, Download |
+| ðŸ”µ Blue | `#0d6efd` | `btn-primary` | Create, Edit, Save |
+| ðŸŸ© Green | `#198754` | `btn-success` | Refresh, Approve |
+| ðŸ”´ Red | `#dc3545` | `btn-danger` | Delete, Clear, Reject |
+| ðŸŸ¦ Gray Fill | `#6c757d` | `btn-secondary` | Cancel |
+| âšª Gray Outline | `#6c757d` | `btn-outline-secondary` | Back navigation |
+| ðŸ”· Light Blue | `#0dcaf0` | `btn-info` | View, Download |
 
 ---
 
-## ✅ Pre-Flight Checklist
+## âœ… Pre-Flight Checklist
 
 Before submitting a page, verify:
 
@@ -296,43 +296,43 @@ Before submitting a page, verify:
 
 ---
 
-## 🔥 Common Mistakes (Don't Do These!)
+## ðŸ”¥ Common Mistakes (Don't Do These!)
 
 ```
-❌ Use bi-arrow-left for back button
-✅ Use oi-arrow-left instead
+âŒ Use bi-arrow-left for back button
+âœ… Use oi-arrow-left instead
 
-❌ Back button with btn-secondary (solid)
-✅ Back button with btn-outline-secondary (outlined)
+âŒ Back button with btn-secondary (solid)
+âœ… Back button with btn-outline-secondary (outlined)
 
-❌ Grid buttons without btn-sm
-✅ Grid buttons with btn-sm btn-primary
+âŒ Grid buttons without btn-sm
+âœ… Grid buttons with btn-sm btn-primary
 
-❌ Form buttons with btn-sm
-✅ Form buttons without btn-sm (full size)
+âŒ Form buttons with btn-sm
+âœ… Form buttons without btn-sm (full size)
 
-❌ Modal style="display: block;"
-✅ Modal style="background-color: rgba(0,0,0,0.5);"
+âŒ Modal style="display: block;"
+âœ… Modal style="background-color: rgba(0,0,0,0.5);"
 
-❌ Delete modal missing d-block class
-✅ Delete modal with "modal fade show d-block"
+âŒ Delete modal missing d-block class
+âœ… Delete modal with "modal fade show d-block"
 
-❌ Validation errors in permanent state
-✅ Validation errors clear: _fieldErrors.Remove(fieldId)
+âŒ Validation errors in permanent state
+âœ… Validation errors clear: _fieldErrors.Remove(fieldId)
 
-❌ Grid buttons with text like "Edit Item"
-✅ Grid buttons icon-only: just <i class="bi bi-pencil"></i>
+âŒ Grid buttons with text like "Edit Item"
+âœ… Grid buttons icon-only: just <i class="bi bi-pencil"></i>
 
-❌ Form without specific error messages
-✅ Form with messages like "Name is required."
+âŒ Form without specific error messages
+âœ… Form with messages like "Name is required."
 
-❌ Input field without required attribute
-✅ Input field with required attribute AND @onblur
+âŒ Input field without required attribute
+âœ… Input field with required attribute AND @onblur
 ```
 
 ---
 
-## 🚀 Lightning Speed Lookup
+## ðŸš€ Lightning Speed Lookup
 
 **Q: How do I style the back button?**
 A: Copy template #1 above. Use `oi-arrow-left` and `btn-outline-secondary btn-sm`.
@@ -354,7 +354,7 @@ A: See Color Code Reference above. Primary (blue) for main actions, danger (red)
 
 ---
 
-## 📞 Still Confused?
+## ðŸ“ž Still Confused?
 
 1. Find your page in `Immo/Pages/`
 2. Look at `ContactRole.razor` - it has EVERYTHING!
@@ -367,9 +367,9 @@ A: See Color Code Reference above. Primary (blue) for main actions, danger (red)
 
 ## Documentation
 
-- 🏠 [Main Documentation](../README.md) - Project overview and structure
-- 📋 [Code Patterns](CODE_PATTERNS_AND_INFRASTRUCTURE.md) - Comprehensive patterns and infrastructure guide
+- ðŸ  [Main Documentation](../README.md) - Project overview and structure
+- ðŸ“‹ [Code Patterns](CODE_PATTERNS_AND_INFRASTRUCTURE.md) - Comprehensive patterns and infrastructure guide
 
 ---
 
-**© 2026 AdminSense. All rights reserved.**
+**Â© 2026 AdminSense. All rights reserved.**
