@@ -27,11 +27,19 @@ The old project:  https://adminsenceweb.azurewebsites.net/
 
 ## 🧩 2. Information sources in this repo
 
-- **UI prototypes**: `docs/index.html`
-  - **Admin mock**: `docs/mock-admin.html`
-  - **Store/cart mock**: `docs/mock-shopcart.html`
+### UI prototypes (`docs/`)
 
-These mocks already map UI labels to the underlying entities (example tags like `Product.StockQuantity`, `OrderItem`, `ApplicationUser`).
+| File | Description |
+|------|-------------|
+| [`docs/mock-loja.html`](docs/mock-loja.html) | Customer storefront — **entry point** (catalog, cart, checkout) |
+| [`docs/mock-admin.html`](docs/mock-admin.html) | Staff admin panel — **IMMO-style layout** (sidebar, dashboard, hub cards, list + form) |
+| [`docs/mock-shopcart.html`](docs/mock-shopcart.html) | Redirect to `mock-loja.html` |
+
+**Full screen-by-screen guide** (reference images, menus, entities, tables): [`readme/MOCK_PROTOTYPE_GUIDE.md`](readme/MOCK_PROTOTYPE_GUIDE.md)
+
+Reference layout screenshots: `readme/images/main_screen.png`, `menu_screen.png`, `forms_screen.png`
+
+Mocks map UI labels to **real EF entities** (`Product`, `WebshopStructure`, `Order`, `OrderLine`, `Customer`, `StaffUser`, etc.) — not generic DTO placeholders.
 
 ---
 
@@ -257,9 +265,11 @@ dotnet run
 
 ## Documentation
 
-- 📋 `docs/index.html` - Entry point for UI prototypes
-- 📋 `docs/mock-admin.html` - Admin prototype
-- 📋 `docs/mock-shopcart.html` - Storefront + cart prototype
+- 📋 [`readme/MOCK_PROTOTYPE_GUIDE.md`](readme/MOCK_PROTOTYPE_GUIDE.md) — Mock layouts, menus, entities, and validation walkthrough
+- 🎨 [`readme/UI_PATTERNS_QUICK_START.md`](readme/UI_PATTERNS_QUICK_START.md) — Buttons, grids, forms (copy-paste)
+- 🏗️ [`readme/CODE_PATTERNS_AND_INFRASTRUCTURE.md`](readme/CODE_PATTERNS_AND_INFRASTRUCTURE.md) — Blazor implementation patterns
+- 📋 [`docs/mock-loja.html`](docs/mock-loja.html) — Storefront prototype (entry point)
+- 📋 [`docs/mock-admin.html`](docs/mock-admin.html) — Admin prototype
 
 ---
 
