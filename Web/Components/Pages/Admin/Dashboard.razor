@@ -1,0 +1,76 @@
+@page "/admin"
+@layout AdminLayout
+@attribute [Authorize(Policy = AppPolicies.AdminOrManager)]
+@using WebShopABMATIC.Application.Auth
+@using WebShopABMATIC.Application.Ports
+@inject IAdminDashboardPort DashboardPort
+@implements IAsyncDisposable
+
+<PageTitle>Admin — Start</PageTitle>
+
+@if (_loading)
+{
+    <p class="text-muted">Loading dashboard…</p>
+}
+else if (_dashboard is not null)
+{
+    <div class="dash-grid">
+        <div class="portfolio-card">
+            <h3><span class="oi oi-cog"></span> Webshop catalog</h3>
+            <p>Products on webshop: <strong>@_dashboard.ProductsOnWebshop</strong></p>
+            <p>Structure nodes: <strong>@_dashboard.WebshopStructureNodes</strong></p>
+            <a class="btn btn-outline-primary btn-sm" href="/admin/hub/webshop">Manage</a>
+        </div>
+        <div class="portfolio-card">
+            <h3><span class="oi oi-cart"></span> Sales &amp; orders</h3>
+            <p>Orders this month: <strong>@_dashboard.OrdersThisMonth</strong></p>
+            <p>Pending acceptance: <strong class="text-danger">@_dashboard.PendingOrders</strong></p>
+            <a class="btn btn-outline-primary btn-sm" href="/admin/orders">View orders</a>
+        </div>
+        <div class="portfolio-card">
+            <h3><span class="oi oi-box"></span> Stock operations</h3>
+            <p>Low stock alerts: <strong class="text-danger">@_dashboard.LowStockAlerts</strong></p>
+            <a class="btn btn-outline-primary btn-sm" href="/admin/hub/stock">Review stock</a>
+        </div>
+        <div class="portfolio-card">
+            <h3><span class="oi oi-dollar"></span> Financial · YTD</h3>
+            <p>Revenue: <strong>@_dashboard.RevenueYtd.ToString("C")</strong></p>
+            <p>Net: <strong>@_dashboard.NetYtd.ToString("C")</strong></p>
+        </div>
+    </div>
+}
+
+@code {
+    private CancellationTokenSource? _cts;
+    private bool _loading = true;
+    private WebShopABMATIC.Application.Admin.Dashboard.AdminDashboardDto? _dashboard;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _cts = new CancellationTokenSource();
+        await LoadAsync(_cts.Token);
+    }
+
+    private async Task LoadAsync(CancellationToken ct)
+    {
+        _loading = true;
+        try
+        {
+            _dashboard = await DashboardPort.GetDashboardAsync(ct);
+        }
+        finally
+        {
+            if (!ct.IsCancellationRequested)
+            {
+                _loading = false;
+            }
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        _cts?.Cancel();
+        _cts?.Dispose();
+        await ValueTask.CompletedTask;
+    }
+}

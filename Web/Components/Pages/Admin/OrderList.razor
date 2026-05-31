@@ -1,0 +1,70 @@
+@page "/admin/orders"
+@layout AdminLayout
+@attribute [Authorize(Policy = AppPolicies.AdminOrManager)]
+@using WebShopABMATIC.Application.Admin.Orders
+@using WebShopABMATIC.Application.Auth
+@using WebShopABMATIC.Application.Ports
+@inject IOrderAdminPort OrderPort
+@implements IAsyncDisposable
+
+<PageTitle>Order</PageTitle>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h4 mb-0"><i class="bi bi-receipt"></i> Order</h1>
+    <button type="button" class="btn btn-success btn-sm" @onclick="RefreshAsync">
+        <i class="bi bi-arrow-repeat me-1"></i>Refresh
+    </button>
+</div>
+
+<a class="btn btn-outline-secondary btn-sm mb-3" href="/admin/hub/sales"><span class="oi oi-arrow-left"></span> Back</a>
+
+@if (_loading) { <p class="text-muted">Loading…</p> }
+else if (_result?.Items.Count == 0) { <div class="alert alert-info">No orders found.</div> }
+else if (_result is not null)
+{
+    <div class="table-responsive bg-white rounded shadow-sm">
+        <table class="table table-striped table-hover mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th>Id</th><th>CreatedAt</th><th>ProjectId</th><th>DeliveryTypeId</th><th>IsAccepted</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var o in _result.Items)
+                {
+                    <tr @key="o.Id">
+                        <td>@o.Id</td>
+                        <td>@o.CreatedAt.ToString("g")</td>
+                        <td>@o.ProjectId</td>
+                        <td>@o.DeliveryTypeId</td>
+                        <td>@(o.IsAccepted ? "true" : "false")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    private CancellationTokenSource? _cts;
+    private OrderListFilter _filter = new();
+    private bool _loading = true;
+    private WebShopABMATIC.Application.Common.PagedResult<OrderSummaryDto>? _result;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _cts = new CancellationTokenSource();
+        await LoadAsync(_cts.Token);
+    }
+
+    private async Task LoadAsync(CancellationToken ct)
+    {
+        _loading = true;
+        try { _result = await OrderPort.GetOrdersAsync(_filter, ct); }
+        finally { if (!ct.IsCancellationRequested) _loading = false; }
+    }
+
+    private Task RefreshAsync() => LoadAsync(_cts?.Token ?? CancellationToken.None);
+
+    public async ValueTask DisposeAsync() { _cts?.Cancel(); _cts?.Dispose(); await ValueTask.CompletedTask; }
+}

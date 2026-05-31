@@ -27,7 +27,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'DM Sans', system-ui, sans-serif;
-      background: var(--bg);
+      background: linear-gradient(180deg, #f0f9ff 0%, var(--bg) 40%, #eef6ff 100%);
       color: var(--text);
       line-height: 1.5;
       min-height: 100vh;
@@ -52,7 +52,8 @@
     .mock-banner .sep { opacity: 0.35; }
 
     .site-header {
-      background: var(--surface);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
@@ -330,7 +331,7 @@
       .cart-row .qty-control, .cart-row .line-total, .cart-row .remove-btn { grid-column: 2; }
     }
     .cart-row:last-child { border-bottom: none; }
-    .cart-row img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; }
+    .cart-row img { width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: var(--accent-soft); padding: 0.25rem; }
     .cart-row h4 { font-size: 0.95rem; margin-bottom: 0.15rem; }
     .cart-row .unit { font-size: 0.8rem; color: var(--muted); }
     .line-total { font-weight: 700; min-width: 5rem; text-align: right; }
@@ -517,7 +518,7 @@
 </head>
 <body>
   <div class="mock-banner">
-    <span>Prototype — Store · entities: Product, WebshopStructure, Order, Customer</span>
+    <span>Prototype — Store · 6 products · local images</span>
     <span class="sep">·</span>
     <a href="mock-admin.html">Admin Panel</a>
   </div>
@@ -526,7 +527,7 @@
     <div class="header-inner">
       <a href="#" class="logo" data-goto="catalog">Web<span>Shop</span></a>
       <div class="search-bar">
-        <input type="search" placeholder="Search products, brands…" aria-label="Search">
+        <input type="search" placeholder="Search hard drives…" aria-label="Search">
       </div>
       <nav class="nav-actions">
         <button type="button" class="nav-link active" data-goto="catalog">Catalog</button>
@@ -752,7 +753,70 @@
   </main>
 
   <script>
+    const products = [
+      { id: 1, name: 'Hard drive 1', desc: 'Hard drive 1', image: 'images/product1.png', price: 49.99, stock: 24, category: 'storage', tag: 'HDD' },
+      { id: 2, name: 'Hard drive 2', desc: 'Hard drive 2', image: 'images/product2.png', price: 59.99, stock: 18, category: 'storage', tag: 'HDD' },
+      { id: 3, name: 'Hard drive 3', desc: 'Hard drive 3', image: 'images/product3.png', price: 69.99, stock: 32, category: 'ssd', tag: 'SSD' },
+      { id: 4, name: 'Hard drive 4', desc: 'Hard drive 4', image: 'images/product4.png', price: 79.99, stock: 15, category: 'ssd', tag: 'SSD' },
+      { id: 5, name: 'Hard drive 5', desc: 'Hard drive 5', image: 'images/product5.png', price: 89.99, stock: 9, category: 'hdd', tag: 'HDD' },
+      { id: 6, name: 'Hard drive 6', desc: 'Hard drive 6', image: 'images/product6.png', price: 99.99, stock: 41, category: 'hdd', tag: 'HDD' }
+    ];
+
+    let currentProduct = products[0];
+    let currentFilter = 'all';
     let currentUser = null;
+
+    function formatPrice(n) {
+      return '$' + n.toFixed(2);
+    }
+
+    function renderProducts() {
+      const grid = document.getElementById('product-grid');
+      const list = currentFilter === 'all'
+        ? products
+        : products.filter(p => p.category === currentFilter);
+      grid.innerHTML = list.map(p => `
+        <article class="product-card" data-product-id="${p.id}">
+          <div class="img-wrap"><img src="${p.image}" alt="${p.name}"></div>
+          <div class="body">
+            <p class="category">${p.tag}</p>
+            <h3>${p.name}</h3>
+            <p class="brand">${p.desc}</p>
+            <div class="price-row">
+              <span class="price">${formatPrice(p.price)}</span>
+              <span class="stock${p.stock < 10 ? ' low' : ''}">${p.stock} in stock</span>
+            </div>
+          </div>
+        </article>
+      `).join('');
+      grid.querySelectorAll('.product-card').forEach(card => {
+        card.addEventListener('click', () => showProduct(Number(card.dataset.productId)));
+      });
+    }
+
+    function showProduct(id) {
+      const p = products.find(x => x.id === id) || products[0];
+      currentProduct = p;
+      document.getElementById('detail-image').src = p.image;
+      document.getElementById('detail-image').alt = p.name;
+      document.getElementById('detail-meta').textContent = `ProductId: ${p.id} · ShowOnWebshop: true · ${p.tag}`;
+      document.getElementById('detail-title').textContent = p.name;
+      document.getElementById('detail-price').textContent = formatPrice(p.price);
+      document.getElementById('detail-desc').textContent = p.desc;
+      document.getElementById('detail-stock').textContent = `${p.stock} in stock`;
+      showScreen('product');
+    }
+
+    document.querySelectorAll('.chip[data-filter]').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.chip[data-filter]').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        currentFilter = chip.dataset.filter;
+        renderProducts();
+      });
+    });
+
+    renderProducts();
 
     const users = {
       customer: { name: 'Mary Smith', initials: 'MS', role: 'customer', email: 'mary.smith@buildco.com' },

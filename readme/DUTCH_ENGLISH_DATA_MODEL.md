@@ -16,8 +16,8 @@
 |----------|--------|--------|
 | **Legacy schema** | `Bkp_Db/ABMATIC-create-local.sql` | Dutch tables (input) |
 | **English DDL** | `Bkp_Db/WebShopABMATIC-create-local.sql` | 139 business tables |
-| **EF entities** | `WebShopABMATIC/Model/Entities/` | 139 C# classes |
-| **Persistence** | `WebShopABMATIC/Persistence/` | DbContext + ModelBuilder |
+| **EF entities** | `Model/Entities/` | 139 C# classes |
+| **Persistence** | `Persistence/` | DbContext + ModelBuilder |
 | **Generator** | `scripts/generate-from-sql.ps1` | Regenerates everything |
 
 > [!TIP]
@@ -25,7 +25,7 @@
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/generate-from-sql.ps1
-dotnet build WebShopABMATIC/Persistence/WebShopABMATIC.Data.Persistence.csproj
+dotnet build Persistence/WebShopABMATIC.Data.Persistence.csproj
 ```
 
 ---
@@ -82,8 +82,8 @@ dotnet build WebShopABMATIC/Persistence/WebShopABMATIC.Data.Persistence.csproj
 | Legacy SQL | `Bkp_Db/ABMATIC-create-local.sql` | **Input** â€” Dutch schema from backup |
 | English SQL | `Bkp_Db/WebShopABMATIC-create-local.sql` | **Output** â€” vNext DDL |
 | Generator | `scripts/generate-from-sql.ps1` | Parses SQL, applies mapping, codegen |
-| Entities | `WebShopABMATIC/Model/Entities/` | 139 EF POCOs (`WebShopABMATIC.Data`) |
-| DbContext | `WebShopABMATIC/Persistence/WebShopABMATICDbContext.cs` | EF Core entry point |
+| Entities | `Model/Entities/` | 139 EF POCOs (`WebShopABMATIC.Data`) |
+| DbContext | `Persistence/WebShopABMATICDbContext.cs` | EF Core entry point |
 
 > [!WARNING]
 > The old LLBLGen folders (`EntityClasses/`, `TypedListClasses/`) are **not** authoritative.
@@ -440,15 +440,17 @@ Staff permissions today live as bit flags on `StaffUser` (`Admin`, `Bestellingen
 ## ðŸ—ï¸ 9. Code layout
 
 ```
-WebShopABMATIC/
+WebShopABMATIC/              ← repo root
+  Application/               # DTOs, ports, policies
+  Infrastructure/            # Identity, EF services, seed
+  Web/                       # Blazor Server UI
   Model/
     WebShopABMATIC.Data.csproj
-    Entities/              # 139 EF entity classes
+    Entities/                # 139 EF entity classes
   Persistence/
     WebShopABMATIC.Data.Persistence.csproj
     WebShopABMATICDbContext.cs
     WebShopABMATICModelBuilder.cs
-  Application/             # (planned) DTOs, services, query models
 ```
 
 | Namespace | Project |

@@ -1,0 +1,81 @@
+@page "/admin/customers"
+@layout AdminLayout
+@attribute [Authorize(Policy = AppPolicies.AdminOrManager)]
+@using WebShopABMATIC.Application.Admin.Customers
+@using WebShopABMATIC.Application.Auth
+@using WebShopABMATIC.Application.Ports
+@inject ICustomerAdminPort CustomerPort
+@implements IAsyncDisposable
+
+<PageTitle>Customer</PageTitle>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h4 mb-0"><i class="bi bi-person-badge"></i> Customer</h1>
+    <button type="button" class="btn btn-success btn-sm" @onclick="RefreshAsync">
+        <i class="bi bi-arrow-repeat me-1"></i>Refresh
+    </button>
+</div>
+
+<a class="btn btn-outline-secondary btn-sm mb-3" href="/admin/hub/customers"><span class="oi oi-arrow-left"></span> Back</a>
+
+<div class="filter-panel mb-3">
+    <div class="row g-3">
+        <div class="col-md-6">
+            <label class="form-label small">Search</label>
+            <input class="form-control form-control-sm" @bind="_filter.Search" placeholder="Name, email, login…" />
+        </div>
+    </div>
+    <div class="d-flex gap-2 justify-content-center mt-3">
+        <button type="button" class="btn btn-primary" @onclick="ApplyAsync"><i class="bi bi-funnel-fill me-1"></i>Apply Filters</button>
+        <button type="button" class="btn btn-danger" @onclick="ClearAsync"><i class="bi bi-x-circle-fill me-1"></i>Clear</button>
+    </div>
+</div>
+
+@if (_loading) { <p class="text-muted">Loading…</p> }
+else if (_result?.Items.Count == 0) { <div class="alert alert-info">No customers found.</div> }
+else if (_result is not null)
+{
+    <div class="table-responsive bg-white rounded shadow-sm">
+        <table class="table table-striped table-hover mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th>CustomerId</th><th>CustomerName</th><th>WebshopLogin</th><th>CustomerTypeId</th><th>CustomerEmail</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in _result.Items)
+                {
+                    <tr @key="c.CustomerId">
+                        <td>@c.CustomerId</td><td>@c.CustomerName</td><td>@c.WebshopLogin</td><td>@c.CustomerTypeId</td><td>@c.CustomerEmail</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    private CancellationTokenSource? _cts;
+    private CustomerListFilter _filter = new();
+    private bool _loading = true;
+    private WebShopABMATIC.Application.Common.PagedResult<CustomerDto>? _result;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _cts = new CancellationTokenSource();
+        await LoadAsync(_cts.Token);
+    }
+
+    private async Task LoadAsync(CancellationToken ct)
+    {
+        _loading = true;
+        try { _result = await CustomerPort.GetCustomersAsync(_filter, ct); }
+        finally { if (!ct.IsCancellationRequested) _loading = false; }
+    }
+
+    private Task ApplyAsync() => LoadAsync(_cts?.Token ?? CancellationToken.None);
+    private async Task ClearAsync() { _filter = new(); await LoadAsync(_cts?.Token ?? CancellationToken.None); }
+    private Task RefreshAsync() => LoadAsync(_cts?.Token ?? CancellationToken.None);
+
+    public async ValueTask DisposeAsync() { _cts?.Cancel(); _cts?.Dispose(); await ValueTask.CompletedTask; }
+}

@@ -1,0 +1,35 @@
+@page "/admin/profile"
+@layout AdminLayout
+@attribute [Authorize(Policy = AppPolicies.AdminOrManager)]
+@using WebShopABMATIC.Application.Auth
+@using Microsoft.AspNetCore.Identity
+@using WebShopABMATIC.Infrastructure.Identity
+@inject UserManager<ApplicationUser> UserManager
+@inject AuthenticationStateProvider AuthStateProvider
+
+<PageTitle>My profile</PageTitle>
+
+<a class="btn btn-outline-secondary btn-sm mb-3" href="/admin"><span class="oi oi-arrow-left"></span> Back to start</a>
+
+<div class="card shadow-sm" style="max-width:480px">
+    <div class="card-body">
+        <h1 class="h5">Staff profile</h1>
+        @if (_user is not null)
+        {
+            <p><strong>Name:</strong> @_user.DisplayName</p>
+            <p><strong>Email:</strong> @_user.Email</p>
+            <p><strong>User name:</strong> @_user.UserName</p>
+            <a class="btn btn-outline-primary btn-sm" href="Account/Manage">Account settings</a>
+        }
+    </div>
+</div>
+
+@code {
+    private ApplicationUser? _user;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var auth = await AuthStateProvider.GetAuthenticationStateAsync();
+        _user = await UserManager.GetUserAsync(auth.User);
+    }
+}
